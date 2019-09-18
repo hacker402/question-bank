@@ -1,0 +1,76 @@
+# server config
+server:
+  port: 8088
+  undertow:
+    accesslog:
+      dir: ../logs/
+      enabled: true
+      pattern: oss
+      prefix: access_log
+      suffix: .log
+      rotate: true
+  compression:
+    enabled: true
+    mime-types: text/html,text/html,text/css,text/javascript,application/json,application/xml,text/plain
+
+
+spring:
+  profiles:
+    active: default
+  application:
+    name: lb-taobao-web
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.8.112:3306/lb_taobao?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&failOverReadOnly=false
+    username: root
+    password: root
+    hikari:
+      connection-init-sql: SET NAMES utf8mb4
+      maximum-pool-size: 100
+      minimum-idle: 5
+      connection-test-query: select 1
+      idle-timeout: 60000
+  mvc:
+    static-path-pattern: /static/**
+    throw-exception-if-no-handler-found: true
+  resources:
+    add-mappings: true
+  freemarker:
+    allow-request-override: false
+    cache: false
+    check-template-location: true
+    charset: UTF-8
+    content-type: text/html
+    expose-request-attributes: false
+    expose-session-attributes: false
+    expose-spring-macro-helpers: false
+    request-context-attribute: request
+    suffix: .html
+    template-loader-path: classpath:/templates/
+    settings:
+      classic_compatible: true
+      number_format: 0.##
+  redis:
+    database: 0
+    host: localhost
+    port: 6379
+    ##password: 123456
+    timeout: 3000s
+  main:
+    bannerMode: "off"
+
+mybatis-plus:
+  mapper-locations: classpath*:/com/laibo/modules/**/mapper/xml/*Mapper.xml
+  type-aliases-package: com.laibo.modules.*
+  global-config:
+    db-config:
+      id-type: AUTO
+      logic-delete-value: 0
+      logic-not-delete-value: 1
+
+logging:
+  config: classpath:logback.xml
+
+# swagger config
+swagger:
+  enable: true
