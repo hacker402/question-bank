@@ -8,13 +8,6 @@
     <artifactId>question-bank</artifactId>
     <packaging>pom</packaging>
     <version>1.0</version>
-    <modules>
-        <module>parent</module>
-        <module>common</module>
-        <module>entity</module>
-        <module>uniapp-api</module>
-        <module>uniapp-service</module>
-    </modules>
 
 
 </project>

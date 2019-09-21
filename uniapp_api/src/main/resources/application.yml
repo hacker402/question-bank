@@ -21,35 +21,26 @@ spring:
     name: lb-taobao-web
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://192.168.8.112:3306/lb_taobao?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&failOverReadOnly=false
+    url: jdbc:mysql://127.0.0.1:3306/bank?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&failOverReadOnly=false
     username: root
-    password: root
+    password: Qwer1234
     hikari:
       connection-init-sql: SET NAMES utf8mb4
       maximum-pool-size: 100
       minimum-idle: 5
       connection-test-query: select 1
       idle-timeout: 60000
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
   mvc:
     static-path-pattern: /static/**
     throw-exception-if-no-handler-found: true
   resources:
     add-mappings: true
-  freemarker:
-    allow-request-override: false
-    cache: false
-    check-template-location: true
-    charset: UTF-8
-    content-type: text/html
-    expose-request-attributes: false
-    expose-session-attributes: false
-    expose-spring-macro-helpers: false
-    request-context-attribute: request
-    suffix: .html
-    template-loader-path: classpath:/templates/
-    settings:
-      classic_compatible: true
-      number_format: 0.##
   redis:
     database: 0
     host: localhost
@@ -58,15 +49,6 @@ spring:
     timeout: 3000s
   main:
     bannerMode: "off"
-
-mybatis-plus:
-  mapper-locations: classpath*:/com/laibo/modules/**/mapper/xml/*Mapper.xml
-  type-aliases-package: com.laibo.modules.*
-  global-config:
-    db-config:
-      id-type: AUTO
-      logic-delete-value: 0
-      logic-not-delete-value: 1
 
 logging:
   config: classpath:logback.xml

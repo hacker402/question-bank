@@ -6,7 +6,7 @@ import org.slf4j.event.Level;
 /**
  * 自定义运行时异常
  *
- * @author jackcooperz
+ * @author qingweiqu
  */
 public class GeneralException extends RuntimeException {
     /**

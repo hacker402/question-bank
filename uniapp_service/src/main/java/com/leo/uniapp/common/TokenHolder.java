@@ -105,7 +105,7 @@ public class TokenHolder {
      * @throws DemoException
      */
     private void parseJson(String result) throws DemoException {
-        JSONObject json = new JSONObject(result);
+        JSONObject json = new JSONObject(Boolean.parseBoolean(result));
         //if (!json.has("access_token")) {
         //    // 返回没有access_token字段
         //    throw new DemoException("access_token not obtained, " + result);
