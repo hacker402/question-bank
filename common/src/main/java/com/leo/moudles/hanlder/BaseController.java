@@ -14,6 +14,10 @@ import com.leo.moudles.utils.DataUtils;
  */
 public class BaseController {
 
+    protected ApiResult success() {
+        return new ApiResult(BaseApiCode.SUCCESS, "操作成功", DataUtils.EMPTY_STR);
+    }
+
     protected ApiResult success(String message, Object body) {
         return new ApiResult(BaseApiCode.SUCCESS, message, body);
     }

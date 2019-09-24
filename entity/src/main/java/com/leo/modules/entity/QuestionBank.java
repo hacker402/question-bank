@@ -24,10 +24,11 @@ public class QuestionBank implements Serializable {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer questionId;
+    private Integer id;
 
-    @Column(name = "garbage_type")
-    private Integer garbageType;
+    private String content;
+
+    private String answer;
 
 
 }
