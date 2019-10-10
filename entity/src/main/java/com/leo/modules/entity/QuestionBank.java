@@ -26,8 +26,19 @@ public class QuestionBank implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    /**
+     * 题库菜单id
+     */
+    private Integer questionMenuId;
+
+    /**
+     * 问题内容
+     */
     private String content;
 
+    /**
+     * 问题答案
+     */
     private String answer;
 
 

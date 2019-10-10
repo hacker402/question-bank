@@ -1,7 +1,10 @@
 package com.leo.uniapp.repository;
 
 import com.leo.modules.entity.QuestionBank;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -9,4 +12,9 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface QuestionBankRepository extends JpaRepository<QuestionBank, Integer> {
+
+    @Query(value = "SELECT * FROM QuestionBank WHERE questionMenuId = ?1",
+            countQuery = "SELECT count(*) FROM QuestionBank WHERE questionMenuId = ?1",
+            nativeQuery = true)
+    Page<QuestionBank> findListByQuestionMenuId (Integer menuId, Pageable pageable);
 }

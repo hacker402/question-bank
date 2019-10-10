@@ -5,6 +5,7 @@ import com.leo.moudles.hanlder.BaseController;
 import com.leo.moudles.response.ApiResult;
 import com.leo.uniapp.service.QuestionMenuService;
 import io.swagger.annotations.Api;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,5 +27,10 @@ public class QuestionMenuController extends BaseController {
     public ApiResult create (QuestionMenu menu) {
         menuService.createMenu(menu);
         return success();
+    }
+
+    @GetMapping
+    public ApiResult list () {
+        return success(menuService.getAllMenu());
     }
 }

@@ -1,6 +1,7 @@
 package com.leo.uniapp.service;
 
 import com.leo.modules.entity.QuestionMenu;
+import com.leo.modules.vo.QuestionMenuListVo;
 import com.leo.moudles.exception.NotExistException;
 import com.leo.moudles.utils.DataUtils;
 import com.leo.moudles.utils.validate.ValidateUtils;
@@ -10,9 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * @author qingweiqu
@@ -40,6 +39,41 @@ public class QuestionMenuService {
         require(menu.getParentId());
         init(menu);
         repository.save(menu);
+    }
+
+    public List<QuestionMenuListVo> getAllMenu () {
+        List<QuestionMenuListVo> voList = new ArrayList<>(10);
+        // 一级
+        List<QuestionMenu> menuList = repository.findAllByParentId(1);
+        for (QuestionMenu menu : menuList) {
+            List<QuestionMenu> secondList = repository.findAllByParentId(menu.getId());
+            QuestionMenuListVo firstVo = QuestionMenuListVo.builder()
+                    .id(menu.getId())
+                    .title(menu.getTitle())
+                    .build();
+            voList.add(firstVo);
+            List<QuestionMenuListVo> secondVoList = new ArrayList<>(20);
+            firstVo.setChildren(secondVoList);
+            secondList.forEach(p -> {
+                QuestionMenuListVo secondVo = QuestionMenuListVo.builder()
+                        .id(p.getId())
+                        .title(p.getTitle())
+                        .build();
+                secondVoList.add(secondVo);
+                List<QuestionMenuListVo> thirdVoList = new ArrayList<>(30);
+                secondVo.setChildren(thirdVoList);
+                List<QuestionMenu> thirdList = repository.findAllByParentId(menu.getId());
+                thirdList.forEach(t -> {
+                    QuestionMenuListVo thirdVo = QuestionMenuListVo.builder()
+                            .id(p.getId())
+                            .title(p.getTitle())
+                            .build();
+                    thirdVoList.add(thirdVo);
+                });
+            });
+
+        }
+        return voList;
     }
 
     private void init (QuestionMenu menu) {
