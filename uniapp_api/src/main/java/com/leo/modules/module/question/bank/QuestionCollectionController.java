@@ -1,4 +1,4 @@
-package com.leo.modules.module.question.bank.controller;
+package com.leo.modules.module.question.bank;
 
 import com.leo.modules.entity.QuestionCollection;
 import com.leo.moudles.hanlder.BaseController;

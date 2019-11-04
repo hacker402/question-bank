@@ -1,4 +1,4 @@
-package com.leo.modules.module.question.bank.controller;
+package com.leo.modules.module.question.bank;
 
 import com.leo.modules.entity.QuestionBank;
 import com.leo.moudles.hanlder.BaseController;
@@ -8,6 +8,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,9 +25,16 @@ public class QuestionBankController extends BaseController {
     @Resource
     private QuestionBankService bankService;
 
-    @ApiOperation(value = "", notes = "分页展示")
+    @ApiOperation(value = "添加问题")
+    @PostMapping
+    public ApiResult add (QuestionBank bank) {
+        bankService.add(bank);
+        return ApiResult.success();
+    }
+
+    @ApiOperation(value = "问题列表", notes = "分页展示")
     @GetMapping
     public ApiResult test (Integer questionMenuId, Pageable pageable) {
-        return (ApiResult) bankService.listPage(questionMenuId, (java.awt.print.Pageable) pageable);
+        return ApiResult.success(bankService.listPage(questionMenuId, pageable));
     }
 }
