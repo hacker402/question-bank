@@ -25,6 +25,7 @@ public class QuestionBankService {
     @Transactional(rollbackFor = Exception.class)
     public Page<QuestionBank> listPage (Integer questionMenuId, Pageable pageable) {
         ValidateUtils.notNull(questionMenuId, "questionMenuId is null");
-        return repository.findAllByQuestionMenuId(questionMenuId, pageable);
+        //return repository.findAllByQuestionMenuId(questionMenuId, pageable);
+        return null;
     }
 }

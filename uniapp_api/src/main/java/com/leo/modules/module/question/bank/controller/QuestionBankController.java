@@ -27,6 +27,6 @@ public class QuestionBankController extends BaseController {
     @ApiOperation(value = "", notes = "分页展示")
     @GetMapping
     public ApiResult test (Integer questionMenuId, Pageable pageable) {
-        return bankService.listPage(questionMenuId, pageable);
+        return (ApiResult) bankService.listPage(questionMenuId, (java.awt.print.Pageable) pageable);
     }
 }

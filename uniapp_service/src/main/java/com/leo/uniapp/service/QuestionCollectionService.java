@@ -2,13 +2,10 @@ package com.leo.uniapp.service;
 
 import com.leo.modules.entity.QuestionCollection;
 import com.leo.uniapp.repository.QuestionCollectionRepository;
-import org.springframework.jca.endpoint.GenericMessageEndpointFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.ValidationUtils;
 
 import javax.annotation.Resource;
-import java.text.CollationElementIterator;
 import java.util.List;
 
 
@@ -19,7 +16,7 @@ public class QuestionCollectionService {
     @Resource
     private QuestionCollectionRepository repository;
 
-    public QuestionCollection require(Integer id) {
+    public QuestionCollection require(Integer id) throws Exception {
         return repository.findById(id)
                 .orElseThrow(() -> new Exception());
     }
@@ -35,7 +32,7 @@ public class QuestionCollectionService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public void delete(Integer collectionId) {
+    public void delete(Integer collectionId) throws Exception {
         QuestionCollection collection = require(collectionId);
         collection.setEnabled(Boolean.TRUE);
         repository.save(collection);

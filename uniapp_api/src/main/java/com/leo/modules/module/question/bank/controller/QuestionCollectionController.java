@@ -25,7 +25,7 @@ public class QuestionCollectionController extends BaseController {
 
     @GetMapping(value = "/list")
     public ApiResult list () {
-        return collectionService.listByUserId(11);
+        return (ApiResult) collectionService.listByUserId(11);
     }
 
     @PutMapping
@@ -35,7 +35,7 @@ public class QuestionCollectionController extends BaseController {
     }
 
     @DeleteMapping
-    public ApiResult delete (Integer collectionId) {
+    public ApiResult delete (Integer collectionId) throws Exception {
         collectionService.delete(collectionId);
         return success();
     }

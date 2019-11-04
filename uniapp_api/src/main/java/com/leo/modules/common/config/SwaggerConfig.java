@@ -1,5 +1,6 @@
 package com.leo.modules.common.config;
 
+import com.github.xiaoymin.knife4j.spring.annotations.EnableSwaggerBootstrapUi;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,6 +10,7 @@ import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * Swagger配置
@@ -16,6 +18,8 @@ import springfox.documentation.spring.web.plugins.Docket;
  * @author jackcooperz
  */
 @Configuration
+@EnableSwagger2
+@EnableSwaggerBootstrapUi
 public class SwaggerConfig {
 
     @Value("${swagger.enable}")

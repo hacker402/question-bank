@@ -8,7 +8,14 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 题库菜单栏
+ * <p>
+ *     题库菜单栏
+ * </p>
+ *
+ * 分为一级菜单
+ *      二级菜单
+ *      三级菜单
+ * parentId为0表示是一级标题
  * @author qingweiqu
  */
 @Data
@@ -23,21 +30,21 @@ public class QuestionMenu implements Serializable {
     private Integer id;
 
     /**
-     * 标题
+     * 名字
      */
-    @Column(name = "f_title")
-    private String title;
+    @Column(name = "f_name", nullable = false)
+    private String name;
 
     /**
      * 父级id
      */
-    @Column(name = "f_parent_id")
+    @Column(name = "f_parent_id", nullable = false, columnDefinition = "int default 0")
     private Integer parentId;
 
     /**
      * 排序序号
      */
-    @Column(name = "f_order_num")
+    @Column(name = "f_order_num", nullable = false, columnDefinition = "int default 0")
     private Integer orderNum;
 
     /**

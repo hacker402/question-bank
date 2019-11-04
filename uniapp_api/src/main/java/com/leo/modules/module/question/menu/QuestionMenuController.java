@@ -15,7 +15,7 @@ import javax.annotation.Resource;
 /**
  * @author qingweiqu
  */
-@Api(tags = "")
+@Api(tags = "题库菜单")
 @RestController
 @RequestMapping(value = "/api/question/menu")
 public class QuestionMenuController extends BaseController {
