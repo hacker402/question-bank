@@ -33,7 +33,7 @@ public class QuestionMenuService {
     @Transactional(rollbackFor = Exception.class)
     public void createMenu (QuestionMenu menu) {
         ValidateUtils.create()
-                .append(menu.getTitle(), DataUtils::isNotEmptyStr, "title标题为空")
+                .append(menu.getName(), DataUtils::isNotEmptyStr, "title标题为空")
                 .append(menu.getParentId(), DataUtils::isNotNull, "parentId为空")
                 .validate();
         require(menu.getParentId());
@@ -41,6 +41,10 @@ public class QuestionMenuService {
         repository.save(menu);
     }
 
+    /**
+     * 获取菜单分类列表
+     * @return
+     */
     public List<QuestionMenuListVo> getAllMenu () {
         List<QuestionMenuListVo> voList = new ArrayList<>(10);
         // 一级
@@ -49,7 +53,7 @@ public class QuestionMenuService {
             List<QuestionMenu> secondList = repository.findAllByParentId(menu.getId());
             QuestionMenuListVo firstVo = QuestionMenuListVo.builder()
                     .id(menu.getId())
-                    .title(menu.getTitle())
+                    .name(menu.getName())
                     .build();
             voList.add(firstVo);
             List<QuestionMenuListVo> secondVoList = new ArrayList<>(20);
@@ -57,7 +61,7 @@ public class QuestionMenuService {
             secondList.forEach(p -> {
                 QuestionMenuListVo secondVo = QuestionMenuListVo.builder()
                         .id(p.getId())
-                        .title(p.getTitle())
+                        .name(p.getName())
                         .build();
                 secondVoList.add(secondVo);
                 List<QuestionMenuListVo> thirdVoList = new ArrayList<>(30);
@@ -66,7 +70,7 @@ public class QuestionMenuService {
                 thirdList.forEach(t -> {
                     QuestionMenuListVo thirdVo = QuestionMenuListVo.builder()
                             .id(p.getId())
-                            .title(p.getTitle())
+                            .name(p.getName())
                             .build();
                     thirdVoList.add(thirdVo);
                 });

@@ -34,7 +34,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .enable(enable)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.laibo.modules.module"))
+                .apis(RequestHandlerSelectors.basePackage("com.leo.modules.module"))
                 .paths(PathSelectors.any())
                 .build()
                 .useDefaultResponseMessages(false)
