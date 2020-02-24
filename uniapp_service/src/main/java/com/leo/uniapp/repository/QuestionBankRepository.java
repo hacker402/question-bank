@@ -13,8 +13,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface QuestionBankRepository extends JpaRepository<QuestionBank, Integer> {
 
-    @Query(value = "SELECT * FROM QuestionBank WHERE questionMenuId = ?1",
-            countQuery = "SELECT count(*) FROM QuestionBank WHERE questionMenuId = ?1",
+    @Query(value = "SELECT * FROM t_question_bank WHERE f_question_menu_id = ?1",
+            countQuery = "SELECT count(*) FROM t_question_bank WHERE f_question_menu_id = ?1",
             nativeQuery = true)
     Page<QuestionBank> findListByQuestionMenuId (Integer menuId, Pageable pageable);
 }

@@ -1,6 +1,7 @@
 package com.leo.uniapp.service;
 
 import com.leo.modules.entity.QuestionBank;
+import com.leo.moudles.response.ApiResult;
 import com.leo.moudles.utils.DataUtils;
 import com.leo.moudles.utils.validate.ValidateUtils;
 import com.leo.uniapp.repository.QuestionBankRepository;
@@ -26,7 +27,7 @@ public class QuestionBankService {
     private QuestionBankRepository repository;
 
     @Transactional(rollbackFor = Exception.class)
-    public void add(QuestionBank bank) {
+    public ApiResult add(QuestionBank bank) {
         log.info("-add input, QuestionBank:{}", bank);
         ValidateUtils.create()
                 .append(bank.getAnswer(), StringUtils::isNotBlank, "answer is null")
@@ -35,6 +36,7 @@ public class QuestionBankService {
                 .validate();
         bank.setCreateTime(new Date());
         repository.save(bank);
+        return ApiResult.success();
     }
 
     @Transactional(rollbackFor = Exception.class)
