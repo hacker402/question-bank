@@ -5,10 +5,10 @@ import java.io.Serializable;
 /**
  * @author qingweiqu
  */
-public class ApiResult implements Serializable {
+public class ApiResult<T> implements Serializable {
     private int code;
     private String msg;
-    private Object data;
+    private T data;
     private long time;
 
     public ApiResult(ApiCode apiCode, String msg) {
@@ -17,14 +17,14 @@ public class ApiResult implements Serializable {
         this.time = System.currentTimeMillis();
     }
 
-    public ApiResult(ApiCode apiCode, String msg, Object data) {
+    public ApiResult(ApiCode apiCode, String msg, T data) {
         this.code = apiCode.getCode();
         this.msg = msg;
         this.data = data;
         this.time = System.currentTimeMillis();
     }
 
-    public ApiResult(ApiCode apiCode, Object data) {
+    public ApiResult(ApiCode apiCode, T data) {
         this.code = apiCode.getCode();
         this.data = data;
         this.time = System.currentTimeMillis();
@@ -54,7 +54,7 @@ public class ApiResult implements Serializable {
         return this.msg;
     }
 
-    public Object getData() {
+    public T getData() {
         return this.data;
     }
 
@@ -70,7 +70,7 @@ public class ApiResult implements Serializable {
         this.msg = msg;
     }
 
-    public void setData(Object data) {
+    public void setData(T data) {
         this.data = data;
     }
 

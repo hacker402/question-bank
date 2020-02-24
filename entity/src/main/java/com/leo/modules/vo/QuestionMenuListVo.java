@@ -16,16 +16,13 @@ import java.util.List;
 @ApiModel(description = "获取菜单列表，每一个菜单数据的封装")
 public class QuestionMenuListVo {
 
-    @ApiModelProperty(value = "id", name = "菜单主键唯一id")
+    @ApiModelProperty(value = "菜单主键唯一id", name = "id")
     private Integer id;
 
-    /**
-     * 标题
-     */
-    @ApiModelProperty(value = "name", name = "菜单显示的分类名字")
+    @ApiModelProperty(value = "菜单显示的分类名字", name = "name", position = 1)
     private String name;
 
-    @ApiModelProperty(value = "children", name = "此菜单的子菜单数据")
+    @ApiModelProperty(value = "菜单的子菜单数据", name = "children", position = 2)
     private List<QuestionMenuListVo> children;
 
 }

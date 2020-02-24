@@ -5,7 +5,7 @@ package com.leo.moudles.response;
  */
 
 public enum BaseApiCode implements ApiCode<Enum> {
-    SUCCESS(0),
+    SUCCESS(200),
     FAILED(-1),
     SYSTEM_EXCEPTION(500),
     RESOURCE_NOT_FOUND(404);

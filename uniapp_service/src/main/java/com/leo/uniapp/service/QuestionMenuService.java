@@ -66,11 +66,12 @@ public class QuestionMenuService {
                 secondVoList.add(secondVo);
                 List<QuestionMenuListVo> thirdVoList = new ArrayList<>(30);
                 secondVo.setChildren(thirdVoList);
-                List<QuestionMenu> thirdList = repository.findAllByParentId(menu.getId());
+                List<QuestionMenu> thirdList = repository.findAllByParentId(p.getId());
                 thirdList.forEach(t -> {
                     QuestionMenuListVo thirdVo = QuestionMenuListVo.builder()
-                            .id(p.getId())
-                            .name(p.getName())
+                            .id(t.getId())
+                            .name(t.getName())
+                            .children(new ArrayList<>())
                             .build();
                     thirdVoList.add(thirdVo);
                 });
