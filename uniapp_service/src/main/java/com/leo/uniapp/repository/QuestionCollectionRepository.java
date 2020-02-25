@@ -9,5 +9,5 @@ public interface QuestionCollectionRepository extends JpaRepository<QuestionColl
 
     List<QuestionCollection> findAllByUserId (Integer userId);
 
-    List<QuestionCollection> findAllByEnabledTrueAndUserId (Integer userId);
+    List<QuestionCollection> findAllByEnabledIsTrueAndUserId (String userId);
 }

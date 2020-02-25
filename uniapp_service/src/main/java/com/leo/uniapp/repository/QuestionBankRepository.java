@@ -17,4 +17,5 @@ public interface QuestionBankRepository extends JpaRepository<QuestionBank, Inte
             countQuery = "SELECT count(*) FROM t_question_bank WHERE f_question_menu_id = ?1",
             nativeQuery = true)
     Page<QuestionBank> findListByQuestionMenuId (Integer menuId, Pageable pageable);
+
 }

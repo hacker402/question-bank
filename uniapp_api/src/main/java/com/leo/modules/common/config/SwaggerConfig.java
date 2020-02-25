@@ -4,6 +4,7 @@ import com.github.xiaoymin.knife4j.spring.annotations.EnableSwaggerBootstrapUi;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.domain.Pageable;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -38,6 +39,7 @@ public class SwaggerConfig {
                 .paths(PathSelectors.any())
                 .build()
                 .useDefaultResponseMessages(false)
+                .ignoredParameterTypes(Pageable.class)
                 .apiInfo(apiInfo());
     }
 

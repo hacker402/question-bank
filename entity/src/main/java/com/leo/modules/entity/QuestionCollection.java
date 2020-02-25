@@ -1,6 +1,8 @@
 package com.leo.modules.entity;
 
+import lombok.Builder;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 
@@ -8,8 +10,10 @@ import javax.persistence.*;
  * <p>
  *     收藏集
  * </p>
+ * @author qingweiqu
  */
 @Data
+@Accessors(chain = true)
 @Entity
 @Table(name = "t_question_collection")
 public class QuestionCollection {
@@ -18,7 +22,7 @@ public class QuestionCollection {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private Integer userId;
+    private String userId;
 
     /**
      * 标题

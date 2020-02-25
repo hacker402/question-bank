@@ -1,6 +1,7 @@
 package com.leo.uniapp.service;
 
 import com.leo.modules.entity.QuestionCollection;
+import com.leo.modules.vo.CreateCollectionQuery;
 import com.leo.uniapp.repository.QuestionCollectionRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,7 +23,12 @@ public class QuestionCollectionService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public void create(QuestionCollection collection) {
+    public void create(CreateCollectionQuery query) {
+        QuestionCollection collection = new QuestionCollection();
+        collection.setTitle(query.getTitle())
+                .setDescription(query.getDescription())
+                .setUserId(query.getUserId())
+                .setEnabled(Boolean.TRUE);
         repository.save(collection);
     }
 
@@ -38,8 +44,8 @@ public class QuestionCollectionService {
         repository.save(collection);
     }
 
-    public List<QuestionCollection> listByUserId(Integer userId) {
-        return repository.findAllByEnabledTrueAndUserId(userId);
+    public List<QuestionCollection> listByUserId(String userId) {
+        return repository.findAllByEnabledIsTrueAndUserId(userId);
     }
 
     private void init (QuestionCollection collection) {
