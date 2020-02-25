@@ -7,15 +7,15 @@ import javax.persistence.*;
 
 /**
  * <p>
- *     收藏集
+ *     收藏
  * </p>
  * @author qingweiqu
  */
 @Data
 @Accessors(chain = true)
 @Entity
-@Table(name = "t_question_collection")
-public class QuestionCollection {
+@Table(name = "t_collection")
+public class Collection {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,19 +24,19 @@ public class QuestionCollection {
     private String userId;
 
     /**
-     * 标题
+     * 题库id
+     */
+    private Integer questionId;
+
+    /**
+     * 收藏集id
+     */
+    private Integer questionCollectionId;
+
+    /**
+     * 问题标题
      */
     private String title;
-
-    /**
-     * 描述
-     */
-    private String description;
-
-    /**
-     * 背景图片名字
-     */
-    private String filename;
 
     private Boolean enabled;
 }

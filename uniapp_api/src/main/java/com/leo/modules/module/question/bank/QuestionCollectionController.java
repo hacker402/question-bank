@@ -8,9 +8,9 @@ import com.leo.uniapp.service.QuestionCollectionService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -21,13 +21,13 @@ import java.util.List;
 @RequestMapping(value = "/api/question/collection")
 public class QuestionCollectionController extends BaseController {
 
-    @Resource
-    private QuestionCollectionService collectionService;
+    @Autowired
+    private QuestionCollectionService questionCollectionService;
 
     @ApiOperation(value = "创建收藏集")
     @PostMapping
     public ApiResult create (@RequestBody CreateCollectionQuery query) {
-        collectionService.create(query);
+        questionCollectionService.create(query);
         return success();
     }
 
@@ -35,18 +35,18 @@ public class QuestionCollectionController extends BaseController {
     @ApiImplicitParam(name = "userId", value = "用户id", required = true, paramType = "path")
     @GetMapping(value = "{userId}")
     public ApiResult<List<QuestionCollection>> list (@PathVariable String userId) {
-        return success("success", collectionService.listByUserId(userId));
+        return success("success", questionCollectionService.listByUserId(userId));
     }
 
     @PutMapping
     public ApiResult update (QuestionCollection collection) {
-        collectionService.update(collection);
+        questionCollectionService.update(collection);
         return success();
     }
 
     @DeleteMapping
     public ApiResult delete (Integer collectionId) throws Exception {
-        collectionService.delete(collectionId);
+        questionCollectionService.delete(collectionId);
         return success();
     }
 }
