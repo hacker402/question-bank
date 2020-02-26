@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.logstash.logback.encoder.org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,7 +43,8 @@ public class QuestionBankService {
     @Transactional(rollbackFor = Exception.class)
     public Page<QuestionBank> listPage (Integer questionMenuId, Pageable pageable) {
         ValidateUtils.notNull(questionMenuId, "questionMenuId is null");
-        return repository.findListByQuestionMenuId(questionMenuId, pageable);
+        Pageable page = PageRequest.of(pageable.getPageNumber() - 1, pageable.getPageSize());
+        return repository.findListByQuestionMenuId(questionMenuId, page);
     }
 
     public QuestionBank detail(Integer questionId) {
