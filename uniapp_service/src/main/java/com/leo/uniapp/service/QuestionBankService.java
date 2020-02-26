@@ -44,4 +44,8 @@ public class QuestionBankService {
         ValidateUtils.notNull(questionMenuId, "questionMenuId is null");
         return repository.findListByQuestionMenuId(questionMenuId, pageable);
     }
+
+    public QuestionBank detail(Integer questionId) {
+        return repository.findById(questionId).get();
+    }
 }

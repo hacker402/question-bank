@@ -11,6 +11,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.annotation.Resource;
 
@@ -18,7 +19,7 @@ import javax.annotation.Resource;
  * @author qingweiqu
  */
 @Api(tags = "题库接口")
-@RequestMapping(value = "/api/question/bank")
+@RequestMapping(value = "api/question")
 @RestController
 public class QuestionBankController extends BaseController {
 
@@ -41,5 +42,14 @@ public class QuestionBankController extends BaseController {
     @GetMapping
     public ApiResult<Page<QuestionBank>> test ( Integer questionMenuId, Pageable pageable) {
         return ApiResult.success(bankService.listPage(questionMenuId, pageable));
+    }
+
+    @ApiOperation(value = "问题详情")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "questionId", value = "问题id", required = true, paramType = "path", dataType = "int")
+    })
+    @GetMapping(value = "{questionId}")
+    public ApiResult<QuestionBank> detail (@ApiIgnore @PathVariable Integer questionId) {
+        return success("success", bankService.detail(questionId));
     }
 }
