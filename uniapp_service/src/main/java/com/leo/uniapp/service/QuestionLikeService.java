@@ -4,6 +4,9 @@ import com.leo.modules.entity.QuestionLike;
 import com.leo.modules.vo.AddQuestionLikeQuery;
 import com.leo.uniapp.repository.QuestionLikeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,5 +34,11 @@ public class QuestionLikeService {
                 .setUserId(query.getUserId())
                 .setCreateTime(new Date());
         repository.save(questionLike);
+    }
+
+
+    public Page<QuestionLike> list(String userId, Pageable pageable) {
+        Pageable page = PageRequest.of(pageable.getPageNumber() - 1, pageable.getPageSize());
+        return repository.findAllByUserIdOfPage(userId, page);
     }
 }

@@ -4,12 +4,15 @@ import com.leo.modules.entity.QuestionCollection;
 import com.leo.modules.vo.CreateCollectionQuery;
 import com.leo.moudles.hanlder.BaseController;
 import com.leo.moudles.response.ApiResult;
+import com.leo.uniapp.service.CollectionService;
 import com.leo.uniapp.service.QuestionCollectionService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
 
@@ -31,12 +34,13 @@ public class QuestionCollectionController extends BaseController {
         return success();
     }
 
-    @ApiOperation(value = "收藏级列表")
-    @ApiImplicitParam(name = "userId", value = "用户id", required = true, paramType = "path")
-    @GetMapping(value = "{userId}")
-    public ApiResult<List<QuestionCollection>> list (@PathVariable String userId) {
+    @ApiOperation(value = "我的收藏级列表")
+    @ApiImplicitParam(name = "userId", value = "用户id", required = true, paramType = "query")
+    @GetMapping
+    public ApiResult<List<QuestionCollection>> listOfOwner (String userId) {
         return success("success", questionCollectionService.listByUserId(userId));
     }
+
 
     @PutMapping
     public ApiResult update (QuestionCollection collection) {
