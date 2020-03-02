@@ -65,10 +65,6 @@ public class QuestionCollectionService {
         return repository.findAllByEnabledIsTrueAndUserId(userId);
     }
 
-    private void init (QuestionCollection collection) {
-
-    }
-
 
     public QuestionCollection detail(Integer id) {
         return repository.findById(id).orElseThrow(() -> new GeneralException("not exist"));

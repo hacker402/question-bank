@@ -2,7 +2,9 @@ package com.leo.uniapp.service;
 
 import com.leo.modules.entity.Collection;
 import com.leo.modules.entity.QuestionBank;
+import com.leo.modules.entity.QuestionCollection;
 import com.leo.modules.vo.AddCollectionQuery;
+import com.leo.modules.vo.QuestionCollectionListResult;
 import com.leo.uniapp.repository.CollectionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,9 @@ public class CollectionService {
 
     @Resource
     private CollectionRepository repository;
+
+    @Autowired
+    private QuestionCollectionService questionCollectionService;
 
     @Autowired
     private QuestionBankService questionBankService;
@@ -40,13 +45,22 @@ public class CollectionService {
         repository.save(collection);
     }
 
-    public List<QuestionBank> getOneCollection(Integer collectionId, String userId) {
+    public QuestionCollectionListResult getOneCollection(Integer collectionId, String userId) {
+        QuestionCollectionListResult result = new QuestionCollectionListResult();
+        QuestionCollection questionCollection = questionCollectionService.detail(collectionId);
+        result.setId(questionCollection.getId())
+                .setTitle(questionCollection.getTitle())
+                .setDescription(questionCollection.getDescription())
+                .setImageUrl(questionCollection.getImageUrl());
+
+
         List<Collection> list = repository.findAllByQuestionCollectionIdAndUserId(collectionId, userId);
-        List<QuestionBank> result = new ArrayList<>();
+        List<QuestionBank> questionBankList = new ArrayList<>();
         list.forEach(p -> {
             QuestionBank questionBank = questionBankService.detail(p.getQuestionId());
-            result.add(questionBank);
+            questionBankList.add(questionBank);
         });
+        result.setQuestionBankList(questionBankList);
         return result;
     }
 

@@ -44,11 +44,4 @@ public class CollectionController extends BaseController {
         return success("success", collectionService.getOneCollection(collectionId, userId));
     }
 
-    //@ApiOperation(value = "收藏级列表")
-    //@ApiImplicitParam(name = "userId", value = "用户id", required = true, paramType = "path")
-    //@GetMapping(value = "{userId}")
-    //public ApiResult<List<QuestionCollection>> list (@PathVariable String userId) {
-    //    return success("success", collectionService.listByUserId(userId));
-    //}
-
 }
