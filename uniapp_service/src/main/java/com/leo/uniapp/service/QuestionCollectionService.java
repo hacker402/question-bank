@@ -2,6 +2,7 @@ package com.leo.uniapp.service;
 
 import com.leo.modules.entity.QuestionCollection;
 import com.leo.modules.vo.CreateCollectionQuery;
+import com.leo.moudles.exception.GeneralException;
 import com.leo.uniapp.repository.QuestionCollectionRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,6 +11,9 @@ import javax.annotation.Resource;
 import java.util.List;
 
 
+/**
+ * @author qingweiqu
+ */
 @Service
 @Transactional(readOnly = true)
 public class QuestionCollectionService {
@@ -54,4 +58,7 @@ public class QuestionCollectionService {
     }
 
 
+    public QuestionCollection detail(Integer id) {
+        return repository.findById(id).orElseThrow(() -> new GeneralException("not exist"));
+    }
 }
