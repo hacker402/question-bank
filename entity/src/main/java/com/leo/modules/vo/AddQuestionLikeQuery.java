@@ -16,4 +16,8 @@ public class AddQuestionLikeQuery {
 
     @ApiModelProperty(name = "userId", value = "用户id")
     private String userId;
+
+
+    @ApiModelProperty(name = "enabled", value = "是否点赞", example = "true")
+    private Boolean enabled = Boolean.TRUE;
 }

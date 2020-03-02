@@ -28,6 +28,7 @@ public class QuestionCollectionService {
         collection.setTitle(query.getTitle())
                 .setDescription(query.getDescription())
                 .setUserId(query.getUserId())
+                .setImageUrl(query.getImageUrl())
                 .setEnabled(Boolean.TRUE);
         repository.save(collection);
     }

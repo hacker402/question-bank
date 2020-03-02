@@ -1,6 +1,5 @@
 package com.leo.uniapp.repository;
 
-import com.leo.modules.entity.QuestionBank;
 import com.leo.modules.entity.QuestionLike;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,6 +19,8 @@ public interface QuestionLikeRepository extends JpaRepository<QuestionLike, Inte
             countQuery = "SELECT count(*) FROM t_question_like WHERE user_id = ?1",
             nativeQuery = true)
     Page<QuestionLike> findAllByUserIdOfPage (String userId, Pageable pageable);
+
+    Optional<QuestionLike> findByQuestionIdAndUserId(Integer questionId, String userId);
 
 
 }

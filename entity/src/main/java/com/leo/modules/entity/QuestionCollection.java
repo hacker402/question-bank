@@ -34,9 +34,9 @@ public class QuestionCollection {
     private String description;
 
     /**
-     * 背景图片名字
+     * 背景图片url
      */
-    private String filename;
+    private String imageUrl;
 
     private Boolean enabled;
 }

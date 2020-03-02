@@ -19,4 +19,7 @@ public class CreateCollectionQuery {
 
     @ApiModelProperty(name = "userId", value = "用户id")
     private String userId;
+
+    @ApiModelProperty(name = "imageUrl", value = "图片url")
+    private String imageUrl;
 }

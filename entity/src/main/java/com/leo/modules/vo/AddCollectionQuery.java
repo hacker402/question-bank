@@ -19,4 +19,8 @@ public class AddCollectionQuery {
 
     @ApiModelProperty(name = "userId", value = "用户id")
     private String userId;
+
+
+    @ApiModelProperty(name = "enabled", value = "是否收藏", example = "true")
+    private Boolean enabled = Boolean.TRUE;
 }

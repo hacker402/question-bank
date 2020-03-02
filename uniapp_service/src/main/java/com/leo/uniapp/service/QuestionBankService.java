@@ -1,6 +1,7 @@
 package com.leo.uniapp.service;
 
 import com.leo.modules.entity.QuestionBank;
+import com.leo.modules.vo.QuestionDetailResult;
 import com.leo.moudles.response.ApiResult;
 import com.leo.moudles.utils.DataUtils;
 import com.leo.moudles.utils.validate.ValidateUtils;
@@ -27,6 +28,11 @@ public class QuestionBankService {
     @Autowired
     private QuestionBankRepository repository;
 
+    @Autowired
+    private CollectionService collectionService;
+    @Autowired
+    private QuestionLikeService questionLikeService;
+
     @Transactional(rollbackFor = Exception.class)
     public ApiResult add(QuestionBank bank) {
         log.info("-add input, QuestionBank:{}", bank);
@@ -49,5 +55,16 @@ public class QuestionBankService {
 
     public QuestionBank detail(Integer questionId) {
         return repository.findById(questionId).get();
+    }
+    public QuestionDetailResult detailV2(Integer questionId, String userId) {
+        QuestionBank questionBank = repository.findById(questionId).get();
+        QuestionDetailResult result = new QuestionDetailResult();
+        result.setId(questionBank.getId())
+                .setAnswer(questionBank.getAnswer())
+                .setContent(questionBank.getContent())
+                .setCreateTime(questionBank.getCreateTime())
+                .setCollected(collectionService.isCollected(questionId, userId))
+                .setLiked(questionLikeService.isLiked(questionId, userId));
+        return result;
     }
 }

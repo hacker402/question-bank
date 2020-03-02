@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.Optional;
 
 
 /**
@@ -29,7 +30,7 @@ public class QuestionLikeService {
         repository.findByQuestionId(query.getQuestionId()).ifPresent(like -> {
             questionLike.setId(like.getId());
         });
-        questionLike.setEnabled(Boolean.TRUE)
+        questionLike.setEnabled(query.getEnabled())
                 .setQuestionId(query.getQuestionId())
                 .setUserId(query.getUserId())
                 .setCreateTime(new Date());
@@ -40,5 +41,14 @@ public class QuestionLikeService {
     public Page<QuestionLike> list(String userId, Pageable pageable) {
         Pageable page = PageRequest.of(pageable.getPageNumber() - 1, pageable.getPageSize());
         return repository.findAllByUserIdOfPage(userId, page);
+    }
+
+    public Boolean isLiked (Integer questionId, String userId) {
+        Boolean liked = Boolean.FALSE;
+        Optional<QuestionLike> optional = repository.findByQuestionIdAndUserId(questionId, userId);
+        if (optional.isPresent()) {
+            liked = optional.get().getEnabled();
+        }
+        return liked;
     }
 }

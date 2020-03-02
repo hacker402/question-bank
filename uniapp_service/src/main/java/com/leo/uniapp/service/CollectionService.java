@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -27,7 +28,11 @@ public class CollectionService {
     @Transactional(rollbackFor = Exception.class)
     public void create(AddCollectionQuery query) {
         Collection collection = new Collection();
-        collection.setEnabled(Boolean.TRUE)
+        repository.findByQuestionIdAndUserId(query.getQuestionId(), query.getUserId())
+                .ifPresent( p -> {
+                    collection.setId(p.getId());
+                });
+        collection.setEnabled(query.getEnabled())
                 .setTitle("11111")
                 .setUserId(query.getUserId())
                 .setQuestionId(query.getQuestionId())
@@ -43,5 +48,14 @@ public class CollectionService {
             result.add(questionBank);
         });
         return result;
+    }
+
+    public Boolean isCollected (Integer questionId, String userId) {
+        Boolean collected = Boolean.FALSE;
+        Optional<Collection>  optional = repository.findByQuestionIdAndUserId(questionId, userId);
+        if (optional.isPresent()) {
+            collected = optional.get().getEnabled();
+        }
+        return collected;
     }
 }

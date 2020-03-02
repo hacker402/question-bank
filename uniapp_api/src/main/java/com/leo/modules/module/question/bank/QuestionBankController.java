@@ -1,6 +1,7 @@
 package com.leo.modules.module.question.bank;
 
 import com.leo.modules.entity.QuestionBank;
+import com.leo.modules.vo.QuestionDetailResult;
 import com.leo.moudles.hanlder.BaseController;
 import com.leo.moudles.response.ApiResult;
 import com.leo.uniapp.service.QuestionBankService;
@@ -46,10 +47,11 @@ public class QuestionBankController extends BaseController {
 
     @ApiOperation(value = "问题详情")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "questionId", value = "问题id", required = true, paramType = "path", dataType = "int")
+            @ApiImplicitParam(name = "questionId", value = "问题id", required = true, paramType = "path", dataType = "int"),
+            @ApiImplicitParam(name = "userId", value = "用户id", required = true, paramType = "query", dataType = "string")
     })
     @GetMapping(value = "{questionId}")
-    public ApiResult<QuestionBank> detail (@ApiIgnore @PathVariable Integer questionId) {
-        return success("success", bankService.detail(questionId));
+    public ApiResult<QuestionDetailResult> detail (@ApiIgnore @PathVariable Integer questionId, @ApiIgnore String userId) {
+        return success("success", bankService.detailV2(questionId, userId));
     }
 }
