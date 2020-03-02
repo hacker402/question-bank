@@ -2,8 +2,10 @@ package com.leo.uniapp.service;
 
 import com.leo.modules.entity.QuestionCollection;
 import com.leo.modules.vo.CreateCollectionQuery;
+import com.leo.modules.vo.UpdateCollectionParam;
 import com.leo.moudles.exception.GeneralException;
 import com.leo.uniapp.repository.QuestionCollectionRepository;
+import net.logstash.logback.encoder.org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,9 +23,9 @@ public class QuestionCollectionService {
     @Resource
     private QuestionCollectionRepository repository;
 
-    public QuestionCollection require(Integer id) throws Exception {
+    public QuestionCollection require(Integer id) {
         return repository.findById(id)
-                .orElseThrow(() -> new Exception());
+                .orElseThrow(() -> new GeneralException("not exist"));
     }
 
     @Transactional(rollbackFor = Exception.class)
@@ -38,14 +40,24 @@ public class QuestionCollectionService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public void update(QuestionCollection collection) {
-        repository.save(collection);
+    public void update(UpdateCollectionParam param) {
+        QuestionCollection questionCollection = repository.findById(param.getId()).orElseThrow(() -> new GeneralException("not exist"));
+        if (StringUtils.isNotBlank(param.getTitle())) {
+            questionCollection.setTitle(param.getTitle());
+        }
+        if (StringUtils.isNotBlank(param.getImageUrl())) {
+            questionCollection.setImageUrl(param.getImageUrl());
+        }
+        if (StringUtils.isNotBlank(param.getDescription())) {
+            questionCollection.setDescription(param.getDescription());
+        }
+        repository.save(questionCollection);
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public void delete(Integer collectionId) throws Exception {
+    public void delete(Integer collectionId) {
         QuestionCollection collection = require(collectionId);
-        collection.setEnabled(Boolean.TRUE);
+        collection.setEnabled(Boolean.FALSE);
         repository.save(collection);
     }
 

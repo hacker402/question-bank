@@ -2,6 +2,7 @@ package com.leo.modules.module.question.bank;
 
 import com.leo.modules.entity.QuestionCollection;
 import com.leo.modules.vo.CreateCollectionQuery;
+import com.leo.modules.vo.UpdateCollectionParam;
 import com.leo.moudles.hanlder.BaseController;
 import com.leo.moudles.response.ApiResult;
 import com.leo.uniapp.service.QuestionCollectionService;
@@ -11,6 +12,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
 
@@ -39,7 +41,7 @@ public class QuestionCollectionController extends BaseController {
         return success("success", questionCollectionService.listByUserId(userId));
     }
 
-    @ApiOperation(value = "收藏级详情")
+    @ApiOperation(value = "收藏集详情")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "收藏级id", required = true, paramType = "path")
     })
@@ -49,15 +51,17 @@ public class QuestionCollectionController extends BaseController {
     }
 
 
+    @ApiOperation(value = "修改收藏集")
     @PutMapping
-    public ApiResult update (QuestionCollection collection) {
-        questionCollectionService.update(collection);
+    public ApiResult update (@RequestBody UpdateCollectionParam param) {
+        questionCollectionService.update(param);
         return success();
     }
 
-    @DeleteMapping
-    public ApiResult delete (Integer collectionId) throws Exception {
-        questionCollectionService.delete(collectionId);
+    @ApiOperation(value = "删除收藏集")
+    @DeleteMapping(value = "{id}")
+    public ApiResult delete(@PathVariable Integer id) {
+        questionCollectionService.delete(id);
         return success();
     }
 }
